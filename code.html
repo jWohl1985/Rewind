@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Project By Jeremy Wohl</title>
+    <title>Rewind: A Coding Project By Jeremy Wohl</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,7 +40,7 @@
 
                 <!-- Nav Items -->
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item ms-3"><a class="nav-link" href="/index.html">App Name: The Challenge</a></li>
+                    <li class="nav-item ms-3"><a class="nav-link" href="/index.html">Rewind: The Challenge</a></li>
                     <li class="nav-item ms-3"><a class="nav-link" href="/solution.html">My Solution</a></li>
                     <li class="nav-item ms-3">
                         <a class="nav-link active" aria-current="page"  href="/code.html">My Code</a>
@@ -63,18 +63,93 @@
                 <div class="col-lg-8">
                     <pre class="line-numbers">
                         <code class="language-javascript">
-                            function HelloWorld(){
-                                alert("Hello World!");
-                            }
+let alertElement = document.getElementById("alert");
+let headingElement = document.getElementById("heading");
+let resultElement = document.getElementById("result");
+
+function runTheApp(){
+    let userInput = getUserInput();
+    if (isValid(userInput)){
+        let result = reverseString(userInput);
+        displayResult(result);
+    }
+    else{
+        displayError("You must enter a string to reverse!");
+    }
+}
+
+function getUserInput(){
+    let input = document.getElementById("userString").value;
+    return input;
+}
+
+function isValid(string){
+    if (string == null || string.length == 0){
+        return false;
+    }
+    return true;
+}
+
+function reverseString(string){
+    let newString = "";
+    for(let i = string.length - 1; i >= 0; i--){
+        newString += string[i];
+    }
+    return newString;
+}
+
+function displayResult(string){  
+    alertElement.classList.remove("invisible");
+    alertElement.classList.add("alert-success");
+    alertElement.classList.remove("alert-danger");
+    headingElement.innerHTML = "Result:";
+    resultElement.innerHTML = string;
+}
+
+function displayError(error){
+    alertElement.classList.remove("invisible");
+    alertElement.classList.add("alert-danger");
+    alertElement.classList.remove("alert-success");
+    headingElement.innerHTML = "Error:";
+    resultElement.innerHTML = error;
+}
                         </code>
                     </pre>
                 </div>
 
                 <!-- Code Writeup -->
                 <div class="col-lg-4">
-                    <p>The code is structured in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hello world is a function that displays an alert with a message of "Hello World."</p>
+                    <p>
+                        First we store some of the HTML elements we'll want to manipulate in some variables. I do this here
+                        so we don't have to repeat ourselves in the displayResult() and displayError() functions.
+                    </p>
+                    <h5>runTheApp()</h5>
+                    <p>
+                        This is the main function that runs when the button is pressed. It gets the user input from the textbox, validates it,
+                        and then either displays the result or warns the user that they didn't enter anything.
+                    </p>
+                    <h5>getUserInput()</h5>
+                    <p>A simple function that just fetches the value from the text box, using the document object.</p>
+                    <h5>isValid()</h5>
+                    <p>
+                        This checks to make sure that the user entered something. If the string is null or has length 0, it returns
+                        false. Otherwise, it returns true.
+                    </p>
+                    <h5>reverseString()</h5>
+                    <p>
+                        Here's the "meat" of the app. First, we set up the string that we will return as an empty string. We treat
+                        the user's string as an array of characters and iterate backwards through it. The last character will be
+                        at position .length - 1 in the array, since arrays in JavaScript are 0-indexed. At each position, we add
+                        the current character to the return string, and then decrement the indexor. We stop after i = 0, the first
+                        element of the string.
+                    </p>
+                    <h5>displayResult() and displayError()</h5>
+                    <p>
+                        These functions manipulate the HTML elements to add and remove various Bootstrap classes. The results are
+                        shown in a Bootstrap alert, with the "alert-danger" class when an error has occurred, or "alert-success" if the
+                        input was valid. The alert starts with the "invisible" class, and this is removed once the button is hit. Both
+                        functions set the innerHTML of the alert, showing either the result or the appropriate error message.
+                    </p>
                 </div>
 
            </div>
